@@ -25,7 +25,5 @@ if __name__ == '__main__':
     })
     print(list(result))  # [{'a': 1, 'b': {'c': 'Positive'}}, {'a': 1}]
 
-    # $not
-
 
 
