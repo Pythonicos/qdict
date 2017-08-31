@@ -13,7 +13,7 @@ este dicionário de dentro da query e do objeto a ser verificado:
 Atenção: Caso o objeto não possua a chave especificada na query, o objeto não será retornado nos resultados finais.
 
 
-## Operadores:
+## Operadores
 
 Todos os operadores respeitam o nível dos objetos:
 
