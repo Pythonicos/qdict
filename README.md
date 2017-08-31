@@ -33,7 +33,7 @@ result = find(obj, {
 print(list(result))  # [{'a': 1, 'b': {'c': 'Positive'}}, {'a': 1}]
 ````
 
-*$not*:
+*$not*: negativa a expressão
 
 *$custom*: Define um método dinamicamente. (func, keyname1, keyname2, ..., keynameN). Cada keyname será um parâmetro com 
 o valor da chave ou None
