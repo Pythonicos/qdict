@@ -73,3 +73,7 @@ result = find(obj, {
 })
 print(list(result))  # [{'a': 1, 'b': {'c': 'Positive'}}, {'a': 1}]
 ```
+
+## Releases
+
+** 1.0.0 - Initial Release
