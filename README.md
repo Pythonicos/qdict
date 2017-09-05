@@ -13,7 +13,7 @@ este dicionário de dentro da query e do objeto a ser verificado:
 Atenção: Caso o objeto não possua a chave especificada na query, o objeto não será retornado nos resultados finais.
 
 
-## Operadores:
+## Operadores
 
 Todos os operadores respeitam o nível dos objetos:
 
@@ -33,7 +33,7 @@ result = find(obj, {
 print(list(result))  # [{'a': 1, 'b': {'c': 'Positive'}}, {'a': 1}]
 ````
 
-*$not*:
+*$not*: negativa a expressão
 
 *$custom*: Define um método dinamicamente. (func, keyname1, keyname2, ..., keynameN). Cada keyname será um parâmetro com 
 o valor da chave ou None
@@ -73,7 +73,6 @@ result = find(obj, {
 })
 print(list(result))  # [{'a': 1, 'b': {'c': 'Positive'}}, {'a': 1}]
 ```
-
 ## Releases
 
 ** 1.0.0 - Initial Release
