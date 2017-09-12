@@ -238,7 +238,52 @@ class ListOrOperatorTests(TestCase):
         self.assertIn({"a": 3, "b": False, "c": {"a": 3}, "d": {"a": 1}}, result_list)
 
 
-class CustomOperatorTest(TestCase):
+class ListGreaterThanTests(TestCase):
+    def test_greater__greater_simple__return_obj_correctely(self):
+        # fixtures
+        obj = [
+            {"a": 1, "b": True, "c": {"a": 1}, "d": {"a": 1}},
+            {"a": 3, "b": False, "c": {"a": 6}},
+            {"a": 3, "b": True, "c": {"a": 8}, "d": {"a": 2}},
+            {"a": 4, "b": False, "c": {"a": 3}, "d": {"a": 1}},
+        ]
+
+        query = {
+            "a": {"$gt": 3}
+        }
+
+        # test
+        result = find(obj, query)
+
+        # asserts
+        result_list = list(result)
+        self.assertEqual(1, len(result_list))
+        self.assertIn({"a": 4, "b": False, "c": {"a": 3}, "d": {"a": 1}}, result_list)
+
+    def test_greater__greater_than_in_sub_key__return_pair_values(self):
+        # fixtures
+        obj = [
+            {"a": 1, "b": True, "c": {"a": 1}, "d": {"a": 1}},
+            {"a": 3, "b": False, "c": {"a": 6}},
+            {"a": 3, "b": True, "c": {"a": 8}, "d": {"a": 2}},
+            {"a": 4, "b": False, "c": {"a": 3}, "d": {"a": 1}},
+        ]
+
+        query = {
+            "c": {"a": {"$gt": 5}}
+        }
+
+        # test
+        result = find(obj, query)
+
+        # asserts
+        result_list = list(result)
+        self.assertEqual(2, len(result_list))
+        self.assertIn({"a": 3, "b": False, "c": {"a": 6}}, result_list)
+        self.assertIn({"a": 3, "b": True, "c": {"a": 8}, "d": {"a": 2}}, result_list)
+
+
+class ListCustomOperatorTest(TestCase):
     def test_custom__custom_pair_values_subkey__return_pair_values(self):
         # fixtures
         obj = [

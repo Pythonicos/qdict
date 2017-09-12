@@ -25,7 +25,7 @@ def matcher_level(value, query, operator_str: str):
     if isinstance(query, dict):
         for qk, qv in query.items():
             if qk[0] == operator_str:
-                matched = resolve(qk, qv, value, operator_str)
+                matched = resolve(qk[1:], qv, value, operator_str)
                 if not matched:
                     break
             else:
@@ -56,10 +56,6 @@ def contains(item, array):
     return item in array
 
 
-def in_(array, value):
-    return value in array
-
-
 def equal(a, b):
     return a == b
 
@@ -68,9 +64,33 @@ def has_key(key, value):
     return key in value
 
 
+def in_(array, value):
+    return value in array
+
+
+def greater(a, b):
+    return b > a
+
+
+def greater_equal(a, b):
+    return b >= a
+
+
+def less(a, b):
+    return b < a
+
+
+def less_equal(a, b):
+    return b <= a
+
+
 FUNCS = {
     "contains": contains,
     "equal": equal,
     "has": has_key,
     "in": in_,
+    "gt": greater,
+    "gte": greater_equal,
+    "lt": less,
+    "lte": less_equal
 }
