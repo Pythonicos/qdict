@@ -6,18 +6,13 @@ Executa uma consulta em um Iterável (List[dict], dict, List[Tuple[key, value]])
 
 O filtro é aplicado horizontalmente acompanhando a iteração das chaves da query, ou seja, 
 quando a query tem uma chave e essa chave não é um operador e seu valor é um dicionário, é isolado
-este dicionário de dentro da query e do objeto a ser verificado:
-
-[imagem 1]
-
+este dicionário de dentro da query e do objeto a ser verificado.
 Atenção: Caso o objeto não possua a chave especificada na query, o objeto não será retornado nos resultados finais.
 
 
 ## Operadores
 
-Todos os operadores respeitam o nível dos objetos:
-
-[imagem 2]
+Todos os operadores respeitam o nível dos objetos.
 
 
 *$or*: lista de queries. 
