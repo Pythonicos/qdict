@@ -33,7 +33,8 @@ result = find(obj, {
     "$or": [{"b": {"c": "Positive"}},
             {"$not": {"$has": "b"}}]
 })
-print(list(result))  # [{'a': 1, 'b': {'c': 'Positive'}}, {'a': 1}]
+r = list(result)
+print(r)  # [{'a': 1, 'b': {'c': 'Positive'}}, {'a': 1}]
 ````
 
 *$not*: negativa a expressão
@@ -97,4 +98,6 @@ print(list(result))  # [{'a': 1, 'b': {'c': 'Positive'}}, {'a': 1}]
 ```
 ## Releases
 
+** 1.1.0 - Fix custom char operator
+         - added greater than, greater than equal, less than and less than equal
 ** 1.0.0 - Initial Release
