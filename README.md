@@ -37,6 +37,9 @@ print(list(result))  # [{'a': 1, 'b': {'c': 'Positive'}}, {'a': 1}]
 ````
 
 *$not*: negativa a expressão
+```python
+{"a": {"$not": 1}}
+```
 
 *$custom*: Define um método dinamicamente. (func, keyname1, keyname2, ..., keynameN). Cada keyname será um parâmetro com 
 o valor da chave ou None
