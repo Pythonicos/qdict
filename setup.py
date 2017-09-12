@@ -6,4 +6,8 @@ setup(name='qdict',
       author='Ohrlando',
       author_email='pythonicos@outlook.com',
       url='https://github.com/Pythonicos/qdict',
-      py_modules=['qdict/__init__', 'qdict/exceptions'])
+      py_modules=['qdict/__init__', 'qdict/exceptions'],
+      license='MIT',
+      classifiers=['Programming Language :: Python :: 3'],
+      keywords='query list dictionary search tool',
+      python_requires='>=3')
