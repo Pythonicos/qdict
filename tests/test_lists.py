@@ -219,9 +219,9 @@ class ListOrOperatorTests(TestCase):
     def test_or__find_objs__query_with_two_keys_dict__get_objs_correctly(self):
         # fixtures
         obj = [
-            {"a": 1, "b": True,  "c": {"a": 2}, "d": {"a": 1}},
+            {"a": 1, "b": True, "c": {"a": 2}, "d": {"a": 1}},
             {"a": 2, "b": False, "c": {"a": 1}},
-            {"a": 1, "b": True,  "c": {"a": 1}, "d": {"a": 2}},
+            {"a": 1, "b": True, "c": {"a": 1}, "d": {"a": 2}},
             {"a": 3, "b": False, "c": {"a": 3}, "d": {"a": 1}},
         ]
         query = {
@@ -236,3 +236,55 @@ class ListOrOperatorTests(TestCase):
         result_list = list(result)
         self.assertEqual(1, len(result_list))
         self.assertIn({"a": 3, "b": False, "c": {"a": 3}, "d": {"a": 1}}, result_list)
+
+
+class CustomOperatorTest(TestCase):
+    def test_custom__custom_pair_values__return_pair_values(self):
+        # fixtures
+        obj = [
+            {"a": 1, "b": True, "c": {"a": 1}, "d": {"a": 1}},
+            {"a": 3, "b": False, "c": {"a": 6}},
+            {"a": 3, "b": True, "c": {"a": 8}, "d": {"a": 2}},
+            {"a": 4, "b": False, "c": {"a": 3}, "d": {"a": 1}},
+        ]
+
+        def pair(num):
+            return num % 2 == 0
+
+        query = {
+            "c": {"$custom": (pair, "a")}
+        }
+
+        # test
+        result = find(obj, query)
+
+        # asserts
+        result_list = list(result)
+        self.assertEqual(2, len(result_list))
+        self.assertIn({"a": 3, "b": False, "c": {"a": 6}}, result_list)
+        self.assertIn({"a": 3, "b": True, "c": {"a": 8}, "d": {"a": 2}}, result_list)
+
+    def test_custom__custom_negative_pair_values__return_pair_values(self):
+        # fixtures
+        obj = [
+            {"a": 1, "b": True, "c": {"a": 1}, "d": {"a": 1}},
+            {"a": 3, "b": False, "c": {"a": 6}},
+            {"a": 3, "b": True, "c": {"a": 8}, "d": {"a": 2}},
+            {"a": 4, "b": False, "c": {"a": 3}, "d": {"a": 1}},
+        ]
+
+        def pair(num):
+            return num % 2 == 0
+
+        query = {
+            "c": {"$not": {"$custom": (pair, "a")}}
+        }
+
+        # test
+        result = find(obj, query)
+
+        # asserts
+        result_list = list(result)
+        self.assertEqual(2, len(result_list))
+        self.assertIn({"a": 1, "b": True, "c": {"a": 1}, "d": {"a": 1}}, result_list)
+        self.assertIn({"a": 4, "b": False, "c": {"a": 3}, "d": {"a": 1}}, result_list)

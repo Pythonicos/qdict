@@ -236,3 +236,55 @@ class DictionaryOrOperatorTests(TestCase):
         result_dict = dict(result)
         self.assertEqual(1, len(result_dict.keys()))
         self.assertIn("obj4", result_dict)
+
+
+class CustomOperatorTest(TestCase):
+    def test_custom__custom_pair_values__return_pair_values(self):
+        # fixtures
+        obj = {
+            "obj1": {"a": 1, "b": True, "c": {"a": 1}, "d": {"a": 1}},
+            "obj2": {"a": 3, "b": False, "c": {"a": 6}},
+            "obj3": {"a": 3, "b": True, "c": {"a": 8}, "d": {"a": 2}},
+            "obj4": {"a": 4, "b": False, "c": {"a": 3}, "d": {"a": 1}},
+        }
+
+        def pair(num):
+            return num % 2 == 0
+
+        query = {
+            "c": {"$custom": (pair, "a")}
+        }
+
+        # test
+        result = find(obj, query)
+
+        # asserts
+        result_list = dict(result)
+        self.assertEqual(2, len(result_list.keys()))
+        self.assertIn("obj2", result_list)
+        self.assertIn("obj3", result_list)
+
+    def test_custom__custom_negative_pair_values__return_pair_values(self):
+        # fixtures
+        obj = {
+            "obj1": {"a": 1, "b": True, "c": {"a": 1}, "d": {"a": 1}},
+            "obj2": {"a": 3, "b": False, "c": {"a": 6}},
+            "obj3": {"a": 3, "b": True, "c": {"a": 8}, "d": {"a": 2}},
+            "obj4": {"a": 4, "b": False, "c": {"a": 3}, "d": {"a": 1}},
+        }
+
+        def pair(num):
+            return num % 2 == 0
+
+        query = {
+            "c": {"$not": {"$custom": (pair, "a")}}
+        }
+
+        # test
+        result = find(obj, query)
+
+        # asserts
+        result_list = dict(result)
+        self.assertEqual(2, len(result_list.keys()))
+        self.assertIn("obj1", result_list)
+        self.assertIn("obj4", result_list)

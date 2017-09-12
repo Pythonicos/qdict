@@ -37,9 +37,28 @@ print(list(result))  # [{'a': 1, 'b': {'c': 'Positive'}}, {'a': 1}]
 ````
 
 *$not*: negativa a expressão
+```python
+{"a": {"$not": 1}}
+```
 
 *$custom*: Define um método dinamicamente. (func, keyname1, keyname2, ..., keynameN). Cada keyname será um parâmetro com 
 o valor da chave ou None
+
+```python
+from qdict import find
+obj = [
+    {"a": 1, "b": True, "c": {"a": 1}, "d": {"a": 1}},
+    {"a": 3, "b": False, "c": {"a": 6}}
+]
+
+def pair(num):
+    return num % 2 == 0
+
+query = {
+    "c": {"$custom": (pair, "a")}
+}
+print(list(find(obj, query)))  # [{"a": 3, "b": False, "c": {"a": 6}}]
+```
 
 *$has*: verifica se o objeto contém a chave
 
