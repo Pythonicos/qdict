@@ -1,5 +1,12 @@
 # Query Dictionary
 
+## Instalação
+
+````bash
+> pip install qdict
+````
+
+
 ## Sobre
 
 Executa uma consulta em um Iterável (List[dict], dict, List[Tuple[key, value]]) e aplica o filtro. 
