@@ -239,7 +239,7 @@ class ListOrOperatorTests(TestCase):
 
 
 class CustomOperatorTest(TestCase):
-    def test_custom__custom_pair_values__return_pair_values(self):
+    def test_custom__custom_pair_values_subkey__return_pair_values(self):
         # fixtures
         obj = [
             {"a": 1, "b": True, "c": {"a": 1}, "d": {"a": 1}},
@@ -263,6 +263,29 @@ class CustomOperatorTest(TestCase):
         self.assertEqual(2, len(result_list))
         self.assertIn({"a": 3, "b": False, "c": {"a": 6}}, result_list)
         self.assertIn({"a": 3, "b": True, "c": {"a": 8}, "d": {"a": 2}}, result_list)
+
+    def test_custom__custom_pair_values__return_pair_values(self):
+        # fixtures
+        obj = [
+            {"a": 1, "b": True, "c": {"a": 1}, "d": {"a": 1}},
+            {"a": 6, "b": False, "c": {"a": 6}},
+            {"a": 3, "b": True, "c": {"a": 8}, "d": {"a": 2}},
+            {"a": 4, "b": False, "c": {"a": 3}, "d": {"a": 1}},
+        ]
+
+        def pair(num):
+            return num % 2 == 0
+
+        query = {"$custom": (pair, "a")}
+
+        # test
+        result = find(obj, query)
+
+        # asserts
+        result_list = list(result)
+        self.assertEqual(2, len(result_list))
+        self.assertIn({"a": 6, "b": False, "c": {"a": 6}}, result_list)
+        self.assertIn({"a": 4, "b": False, "c": {"a": 3}, "d": {"a": 1}}, result_list)
 
     def test_custom__custom_negative_pair_values__return_pair_values(self):
         # fixtures
