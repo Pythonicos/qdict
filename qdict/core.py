@@ -15,7 +15,7 @@ def resolve(func, query_value, value, operator_str: str):
             except IndexError:
                 raise CustomValueError()
         else:
-            return FUNCS[func](query_value, value)
+            return FUNCS[func[1:]](query_value, value)
     except KeyError as e:
         raise InvalidOperator(e)
 
@@ -25,7 +25,7 @@ def matcher_level(value, query, operator_str: str):
     if isinstance(query, dict):
         for qk, qv in query.items():
             if qk[0] == operator_str:
-                matched = resolve(qk[1:], qv, value, operator_str)
+                matched = resolve(qk, qv, value, operator_str)
                 if not matched:
                     break
             else:
